@@ -27,3 +27,15 @@ function renderMateriais(materiais) {
             tbody.appendChild(tr);
     });
 }
+
+async function carregarMateriais() {
+    try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error (`HTTP ${res.status}`);
+        const data = await res.json();
+        renderMateriais(data);
+    } catch (err) {
+        document.getElementById("lista-materiais".innerHTML) = `<tr class="empty-row error"><td colspan="3"Erro ao carregar materiais.</td></tr>`;
+        console.error("GET error:", err);
+    }
+}
