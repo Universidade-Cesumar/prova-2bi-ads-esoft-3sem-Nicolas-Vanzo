@@ -39,3 +39,34 @@ async function carregarMateriais() {
         console.error("GET error:", err);
     }
 }
+
+document.getElementById("btn-cadastrar").addEventListener("click", async () => {
+  const nome = document.getElementById("input-nome").value.trim();
+  const quantidade = document.getElementById("input-quantidade").value.trim();
+ 
+  if (!nome || !quantidade) {
+    setFeedback("Preencha o nome e a quantidade antes de cadastrar.", "error");
+    return;
+  }
+ 
+  setFeedback("Cadastrando…", "info");
+ 
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nome, quantidade: Number(quantidade) }),
+    });
+ 
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+ 
+    setFeedback("Material cadastrado com sucesso!", "success");
+    document.getElementById("input-nome").value = "";
+    document.getElementById("input-quantidade").value = "";
+ 
+    await carregarMateriais();
+  } catch (err) {
+    setFeedback("Erro ao cadastrar material.", "error");
+    console.error("POST error:", err);
+  }
+});
