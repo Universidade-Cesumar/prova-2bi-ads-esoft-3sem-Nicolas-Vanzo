@@ -70,3 +70,5 @@ document.getElementById("btn-cadastrar").addEventListener("click", async () => {
     console.error("POST error:", err);
   }
 });
+
+carregarMateriais();
