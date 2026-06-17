@@ -1,21 +1,26 @@
-/* ── Tokens ──────────────────────────────────────────────────────────────── */
+/* ── Tokens / Variáveis ──────────────────────────────────────────────────── */
 :root {
-  --bg:        #0f1117;
-  --surface:   #1a1d27;
-  --border:    #2e3245;
-  --accent:    #00a5a0;
-  --accent-dk: #c98900;
-  --text:      #e8eaf0;
-  --muted:     #7a7f99;
-  --success:   #3ecf8e;
-  --error:     #f06060;
-  --radius:    6px;
-  --font-ui:   "Inter", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Mono", monospace;
+  --bg:         #0f1117;
+  --surface:    #1a1d27;
+  --border:     #2e3245;
+  --accent:     #00a5a0;
+  --accent-hover: #00d2cc; /* CORRIGIDO: Tom turquesa condizente para o hover */
+  --text:       #e8eaf0;
+  --muted:      #7a7f99;
+  --success:    #3ecf8e;
+  --error:      #f06060;
+  --radius:     8px; /* Ajustado para um visual levemente mais moderno */
+  --font-ui:    "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono:  "JetBrains Mono", "Fira Mono", monospace;
+  --shadow:     0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* ── Reset ───────────────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── Reset Prático ───────────────────────────────────────────────────────── */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
 
 body {
   background: var(--bg);
@@ -24,47 +29,61 @@ body {
   font-size: 15px;
   line-height: 1.6;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Header ──────────────────────────────────────────────────────────────── */
 header {
-  border-bottom: 2px solid var(--accent);
-  padding: 20px 0 16px;
+  border-bottom: 1px solid var(--border);
+  padding: 32px 0 24px;
   text-align: center;
+  position: relative;
+}
+
+/* Linha sutil de destaque no topo */
+header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
 }
 
 .header-label {
   display: block;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: var(--text);
 }
 
 .header-sub {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
-  margin-top: 2px;
-  letter-spacing: 0.06em;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
 }
 
 /* ── Layout ──────────────────────────────────────────────────────────────── */
 main {
-  max-width: 720px;
-  margin: 36px auto;
-  padding: 0 20px;
+  max-width: 800px; /* Um pouco mais largo para acomodar bem as 5 colunas */
+  margin: 40px auto;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 32px;
 }
 
 /* ── Card ────────────────────────────────────────────────────────────────── */
@@ -72,17 +91,18 @@ main {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 28px 28px 24px;
+  padding: 32px;
+  box-shadow: var(--shadow);
 }
 
 .card h2 {
   font-size: 13px;
   font-family: var(--font-mono);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -90,15 +110,15 @@ main {
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 label {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   color: var(--muted);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -109,54 +129,66 @@ input {
   color: var(--text);
   font-family: var(--font-ui);
   font-size: 15px;
-  padding: 10px 14px;
+  padding: 12px 16px;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 165, 160, 0.15);
 }
 
 input::placeholder {
   color: var(--muted);
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
-/* ── Button ──────────────────────────────────────────────────────────────── */
+/* Remover setas padrão do input number para um visual mais limpo */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ── Botão Cadastrar ─────────────────────────────────────────────────────── */
 #btn-cadastrar {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  margin-top: 8px;
-  padding: 12px;
+  margin-top: 12px;
+  padding: 14px;
   background: var(--accent);
-  color: #0f1117;
+  color: var(--bg);
   font-family: var(--font-ui);
   font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
-#btn-cadastrar:hover  { background: var(--accent-dk); }
-#btn-cadastrar:active { transform: scale(0.98); }
+#btn-cadastrar:hover  { background: var(--accent-hover); }
+#btn-cadastrar:active { transform: scale(0.99); }
 
 /* ── Feedback ────────────────────────────────────────────────────────────── */
 .feedback {
-  margin-top: 12px;
+  margin-top: 14px;
   font-size: 13px;
-  min-height: 18px;
+  font-weight: 500;
+  min-height: 20px;
+  transition: color 0.2s;
 }
 
 .feedback.success { color: var(--success); }
 .feedback.error   { color: var(--error); }
 .feedback.info    { color: var(--muted); }
 
-/* ── Table ───────────────────────────────────────────────────────────────── */
+/* ── Table / Listagem de Materiais ────────────────────────────────────────── */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -167,48 +199,132 @@ thead th {
   text-align: left;
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
-  padding: 0 12px 10px;
-  border-bottom: 1px solid var(--border);
+  padding: 12px;
+  border-bottom: 2px solid var(--border);
 }
 
-thead th:first-child { width: 48px; }
-thead th:last-child  { width: 120px; text-align: right; }
+/* Alinhamentos refinados de coluna */
+thead th:nth-child(1) { width: 60px; }
+thead th:nth-child(3) { text-align: center; width: 80px; }
+thead th:nth-child(4) { text-align: center; width: 110px; }
+thead th:nth-child(5) { text-align: right; width: 160px; }
 
 tbody tr {
   border-bottom: 1px solid var(--border);
-  transition: background 0.1s;
+  transition: background-color 0.15s;
 }
 
 tbody tr:last-child { border-bottom: none; }
-tbody tr:hover      { background: rgba(240, 165, 0, 0.04); }
+tbody tr:hover { background: rgba(232, 234, 240, 0.02); }
 
 tbody td {
-  padding: 11px 12px;
+  padding: 14px 12px;
   color: var(--text);
+  vertical-align: middle;
 }
 
-tbody td:first-child {
+tbody td:nth-child(1) {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--muted);
 }
 
-tbody td:last-child { text-align: right; }
+/* Quantidade e Entrada de texto centralizados */
+tbody td:nth-child(3),
+tbody td:nth-child(4) {
+  text-align: center;
+}
+
+/* Alinhamento da última coluna de ações para a direita */
+tbody td:nth-child(5) {
+  display: flex;
+  justify-content: flex-end;
+}
 
 .empty-row td {
-  text-align: center;
+  text-align: center !important;
   color: var(--muted);
   font-style: italic;
-  padding: 24px;
+  padding: 36px 12px;
 }
 
 .empty-row.error td { color: var(--error); }
 
-/* ── Responsive ──────────────────────────────────────────────────────────── */
-@media (max-width: 480px) {
-  .card { padding: 20px 16px; }
-  header h1 { font-size: 1.5rem; }
+/* ── Sprint 2: Inputs Dinâmicos & Ações ──────────────────────────────────── */
+.input-retirada {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  padding: 8px;
+  width: 64px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-retirada:focus { border-color: var(--accent); }
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-baixar,
+.btn-excluir {
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn-baixar:active,
+.btn-excluir:active { transform: scale(0.96); }
+
+/* Botão Baixar / Retirar */
+.btn-baixar {
+  background: rgba(0, 165, 160, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(0, 165, 160, 0.2);
+}
+
+.btn-baixar:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Botão Excluir */
+.btn-excluir {
+  background: rgba(240, 96, 96, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(240, 96, 96, 0.2);
+}
+
+.btn-excluir:hover {
+  background: var(--error);
+  color: var(--bg);
+}
+
+/* ── Responsividade Geral ────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  main { margin: 20px auto; padding: 0 16px; }
+  .card { padding: 20px; }
+  header h1 { font-size: 1.75rem; }
+  
+  /* Permite rolagem horizontal na tabela caso a tela seja muito pequena */
+  .table-container {
+    overflow-x: auto;
+  }
 }
