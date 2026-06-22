@@ -17,6 +17,7 @@
     </header>
 
     <main>
+
         <div class="dashboard-strip">
             <div class="dash-stat">
                 <span class="dash-label">Total de Itens</span>
@@ -27,6 +28,7 @@
                 <span class="dash-value critical-count" id="total-critico">—</span>
             </div>
         </div>
+
         <section class="card form-card">
             <h2>Cadastrar Material</h2>
 
@@ -46,27 +48,39 @@
         </section>
 
         <section class="card list-card">
-            <h2>Materiais em Estoque</h2>
-
+            <div class="list-header">
+                <h2>Materiais em Estoque</h2>
+                <div class="search-wrap">
+                <input
+                    type="text"
+                    id="input-busca"
+                    placeholder="Pesquisar material…"
+                    autocomplete="off"
+                />
+                </div>
+            </div>
+    
             <table>
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nome</th>
-                        <th>Qtd</th>
-                        <th>Retirar</th>
-                        <th>Ações</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Qtd</th>
+                    <th>Retirar</th>
+                    <th>Ações</th>
+                </tr>
                 </thead>
                 <tbody id="lista-materiais">
-                    <tr class="empty-row">
-                        <td colspan="5">Carregando materiais...</td>
+                <tr class="empty-row">
+                    <td colspan="5">Carregando materiais…</td>
+                </tr>
                 </tbody>
             </table>
         </section>
-            
+    
     </main>
-
+    
     <script src="main.js"></script>
+    
 </body>
 </html>
