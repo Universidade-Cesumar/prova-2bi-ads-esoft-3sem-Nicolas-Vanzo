@@ -67,17 +67,26 @@ function renderMateriais(materiais) {
   });
 }
 
-async function carregarMateriais() {
-    try {
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        renderMateriais(data);
-    } catch (err) {
+document.getElementById("input-busca").addEventListener("input", (e) => {
+  const termo = e.target.value.trim().toLowerCase();
+  const filtrados = termo
+    ? materiaisCache.filter(m => (m.nome ?? m.name ?? "").toLowerCase().includes(termo))
+    : materiaisCache;
+  renderMateriais(filtrados);
+});
 
-        document.getElementById("lista-materials").innerHTML = `<tr class="empty-row error"><td colspan="5">Erro ao carregar materiais.</td></tr>`;
-        console.error("GET error:", err);
-    }
+async function carregarMateriais() {
+  try {
+    const res = await fetch(API_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    materiaisCache = await res.json();
+    renderMateriais(materiaisCache);
+    atualizarDashboard(materiaisCache);
+  } catch (err) {
+    document.getElementById("lista-materiais").innerHTML =
+      `<tr class="empty-row error"><td colspan="5">Erro ao carregar materiais. Verifique sua conexão.</td></tr>`;
+    console.error("GET error:", err);
+  }
 }
 
 document.getElementById("btn-cadastrar").addEventListener("click", async () => {
