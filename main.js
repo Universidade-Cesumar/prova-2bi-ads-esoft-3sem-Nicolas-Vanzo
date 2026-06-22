@@ -10,6 +10,13 @@ function validarRetirada(estoqueAtual, quantidadeRetirada) {
   return true;
 }
 
+function atualizarDashboard(materiais) {
+  const total   = materiais.length;
+  const critico = materiais.filter(m => Number(m.quantidade ?? 0) < 10).length;
+  document.getElementById("total-itens").textContent  = total;
+  document.getElementById("total-critico").textContent = critico;
+}
+
 function setFeedback(msg, type = "info") {
     const el = document.getElementById("feedback");
     if (!el) return;
