@@ -2,6 +2,7 @@
 
 const API_URL = "https://6a29e976f59cb8f65f1dc461.mockapi.io/materiais";
 
+let materiaisCache = [];
 
 function validarRetirada(estoqueAtual, quantidadeRetirada) {
   if (quantidadeRetirada <= 0) return false;
