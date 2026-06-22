@@ -35,23 +35,36 @@ function renderMateriais(materiais) {
     }
 
     materiais.forEach((m, i) => {
-        const tr = document.createElement("tr");
-        
-       
-        tr.innerHTML = `
-            <td>${i + 1}</td>
-            <td>${m.nome ?? m.name ?? "-"}</td>
-            <td>${m.quantidade ?? m.quantity ?? "-"}</td>
-            <td>
-                <input type="number" class="input-retirada" min="1" style="width: 60px;" value="1">
-            </td>
-            <td>
-                <button class="btn-baixar" data-id="${m.id}" data-qty="${m.quantidade ?? m.quantity ?? 0}">Retirar</button>
-                <button class="btn-excluir" data-id="${m.id}">Excluir</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
+      const nome = m.nome ?? m.name ?? "—";
+      const qty  = Number(m.quantidade ?? m.quantity ?? 0);
+      const critico = qty < 10;
+  
+      const tr = document.createElement("tr");
+      if (critico) tr.classList.add("estoque-critico");
+  
+      tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${nome}${critico ? ' <span class="badge-critico">CRÍTICO</span>' : ""}</td>
+        <td><span class="qty-pill${critico ? " qty-pill--low" : ""}">${qty}</span></td>
+        <td>
+          <input
+            type="number"
+            id="input-retirada"
+            class="input-retirada"
+            placeholder="0"
+            min="1"
+            max="${qty}"
+            data-id="${m.id}"
+            data-qty="${qty}"
+          />
+        </td>
+        <td class="actions-cell">
+          <button class="btn-baixar" data-id="${m.id}" data-qty="${qty}">Baixar</button>
+          <button class="btn-excluir" data-id="${m.id}">Excluir</button>
+        </td>
+      `;
+    tbody.appendChild(tr);
+  });
 }
 
 async function carregarMateriais() {
