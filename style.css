@@ -328,3 +328,20 @@ tbody td:nth-child(5) {
     overflow-x: auto;
   }
 }
+
+/* ── Dashboard strip ─── SPRINT 3 */
+.dashboard-strip { ... }
+.dash-stat { ... }
+.dash-value { color: var(--accent); }
+.critical-count { color: var(--amber); } 
+
+/* ── Estoque crítico */
+tr.estoque-critico { background: rgba(255,176,64,0.04); }
+.badge-critico { ... color: var(--amber); }
+
+/* ── Qty pill variante baixa ─── */
+.qty-pill--low { color: var(--amber); border-color: var(--amber-border); }
+
+/* ── Search wrap */
+.search-wrap input { ... }
+.list-header { display: flex; justify-content: space-between; ... }
